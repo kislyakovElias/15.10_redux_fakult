@@ -4,41 +4,48 @@ const initialState = {
             _id: 1,
             name: 'Ilu',
             status: 'todo',
-            priority: 2
+            priority: 2,
+            description: 'H'
         },{
             _id: 2,
             name: 'Gina',
             status: 'todo',
-            priority: 3
+            priority: 3,
+            description: 'Ho'
         },{
             _id: 3,
             name: 'Benja',
             status: 'progress',
-            priority: 5
+            priority: 5,
+            description: 'Hoh'
         },
         {
             _id: 4,
             name: 'Pro',
             status: 'done',
-            priority: 2
+            priority: 2,
+            description: 'Hoho'
         },
         {
             _id: 5,
             name: 'Pedro',
             status: 'done',
-            priority: 2
+            priority: 2,
+            description: 'Hohoh'
         },
         {
             _id: 6,
             name: 'Peppero',
             status: 'done',
-            priority: 3
+            priority: 3,
+            description: 'Hohoho'
         },
         {
             _id: 7,
             name: 'Chadd',
             status: 'review',
-            priority: 4
+            priority: 4,
+            description: 'Hohohoh'
         }
     ],
     columns: [
@@ -64,6 +71,20 @@ const initialState = {
 const kanban = (state = initialState, action) => {
     switch (action.type) {
 
+        case 'SET_CARDS':
+            return {
+                ...state,
+                cards: action.payload
+            }
+
+        case 'GET_COLUMNS' :
+                return{
+                ...state,
+                columns: action.payload
+            }
+
+
+
         case 'ADD_CARD' :
             return {
                 ...state,
@@ -71,7 +92,8 @@ const kanban = (state = initialState, action) => {
                     _id: Math.random(),
                     name: 'New',
                     status: 'todo',
-                    priority: 1
+                    priority: 1,
+                    description: '1'
                 }]
             }
 
