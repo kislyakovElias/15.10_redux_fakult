@@ -1,47 +1,30 @@
 import React from 'react';
-import './App.css';
-import {connect} from "react-redux";
-import Card from "./Card";
-import List from "./List";
-import 'bootstrap/dist/css/bootstrap.css'
-//import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
+import {connect} from 'react-redux';
+import Board from "./Board";
+import {Container, Button} from "reactstrap"
+
 
 function App(props) {
 
-    console.log(props.cards)
+    console.log(props)
 
-  return (
-    <div  className='container'>
-        <div className='row'>
+    return (
+        <Container>
 
-        {props.columns.map(el =>
-            <div className='col-4 col-sm' style={{border: "1px solid"}} >
-            {el.status.toUpperCase()}
-        <h4>
-            <List key={el._id} status={el.status}/>
-        </h4>
-        </div>)}
-            <button onClick={()=> props.addCard()}>Add card</button>
+            <Button onClick={props.addCard}>Add Card</Button>
+            <Board cards={props.cards} columns={props.columns}/>
 
-            {/*{props.cards.map(el => el.name)}*/}
-            {/*{props.columns.map(el=> <List status={el.status} />)}*/}
-
-
-
-        </div>
-
-
-    </div>
-  );
+        </Container>
+    );
 }
 
 const mapStateToProps = (state) => ({
     cards: state.cards,
     columns: state.columns
 })
+
 const mapDispatchToProps = (dispatch) => ({
-    addCard: () => dispatch({type:'ADD_CARD'}),
-  //  deleteCard: (cardId) => dispatch({type:'DELETE_CARD', payload: cardId})
+    addCard: () => dispatch({type: 'ADD_CARD'}),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps) (App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
