@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
-import {cardDeleteById, moveRight} from "./Actions";
+
+import {cardDeleteById, moveRight, moveLeft, priorityChange} from "./Actions";
 
 function CardItem(props) {
 
@@ -19,12 +20,12 @@ function CardItem(props) {
                 <CardTitle>{name}</CardTitle>
                 <CardSubtitle>{'Description: '}{description}</CardSubtitle>
                 <br/>
-                <Button disabled={priority === 10}  onClick={()=>props.changePriority(_id, +1)}>Up</Button>
+                <Button disabled={priority === 10}  onClick={()=>props.priorityChange(card, + 1)}>Up</Button>
                 <CardText>{priority}</CardText>
-                <Button disabled={priority === 1}  onClick={()=>props.changePriority(_id, -1)}>Dow</Button>
+                <Button disabled={priority === 1}  onClick={()=>props.priorityChange(card, - 1)}>Dow</Button>
                 <br/>
                 <br/>
-                <Button disabled={status === 'todo'}  onClick={()=>props.moveCard(_id, -1)}>Left</Button>
+                <Button disabled={status === 'todo'}  onClick={()=>props.moveLeft(card, props.columns)}>Left</Button>
                 <Button color='warning' onClick={deleteButtonHandler}> Delete</Button>
                 <Button disabled={status === 'done'} onClick={()=>props.moveRight(card, props.columns)} >Right</Button>
             </CardBody>
@@ -33,7 +34,7 @@ function CardItem(props) {
 }
 
 const mapStateToProps = (state) => ({
-    cards: state.cards,
+        cards: state.cards,
         columns: state.columns
 })
 
@@ -42,7 +43,10 @@ const mapDispatchToProps = (dispatch) => ({
     changePriority: (cardId, value) => dispatch({type: 'CHANGE_PRIORITY', payload: {cardId, value}}),
     // deleteCard: (cardId) => dispatch({type: 'DELETE_CARD', payload: cardId})
     deleteCard: (cardId) => dispatch(cardDeleteById(cardId)),
-    moveRight: (card,columns) => dispatch(moveRight(card, columns))
+    moveRight: (card,columns) => dispatch(moveRight(card, columns)),
+    moveLeft: (card,columns) => dispatch(moveLeft(card, columns)),
+    priorityChange: (card, value) => dispatch(priorityChange(card, value)),
+   // priorityDown: (card) => dispatch(priorityDown(card))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardItem);

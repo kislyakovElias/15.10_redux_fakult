@@ -87,3 +87,49 @@ const status = colStatuses[colStatuses.indexOf(card.status) + 1];
         }
 
 }
+
+export function moveLeft(card, columns){
+    const colStatuses = columns.map(el => el.status);
+    const status = colStatuses[colStatuses.indexOf(card.status) - 1];
+
+
+    return (dispatch) => {
+        axios.patch(`http://nazarov-kanban-server.herokuapp.com/card/${card._id}`, {status})
+            .then((res) =>dispatch(setCards()))
+            .catch(
+                (err)=>
+                    console.log(err, 'not ok')
+            )
+    }
+
+}
+
+export function priorityChange(card, value){
+        const priority = card.priority + value;
+
+
+    return (dispatch) => {
+        axios.patch(`http://nazarov-kanban-server.herokuapp.com/card/${card._id}`, {priority})
+            .then((res) =>dispatch(setCards()))
+            .catch(
+                (err)=>
+                    console.log(err, 'not ok')
+            )
+    }
+
+}
+
+export function priorityDown(card){
+    const priority = card.priority - 1;
+
+
+    return (dispatch) => {
+        axios.patch(`http://nazarov-kanban-server.herokuapp.com/card/${card._id}`, {priority})
+            .then((res) =>dispatch(setCards()))
+            .catch(
+                (err)=>
+                    console.log(err, 'not ok')
+            )
+    }
+
+}
