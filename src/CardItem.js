@@ -34,7 +34,7 @@ function CardItem(props) {
 
 const mapStateToProps = (state) => ({
     cards: state.cards,
-    columns: state.columns
+        columns: state.columns
 })
 
 const mapDispatchToProps = (dispatch) => ({
