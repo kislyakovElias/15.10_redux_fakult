@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
-
-import {cardDeleteById, moveRight, moveLeft, priorityChange} from "./Actions";
+import {cardDeleteById, moveRight, moveLeft, priorityChange, editCard} from "./Actions";
+import Edit from "./Edit";
 
 function CardItem(props) {
 
@@ -19,6 +19,9 @@ function CardItem(props) {
             <CardBody>
                 <CardTitle>{name}</CardTitle>
                 <CardSubtitle>{'Description: '}{description}</CardSubtitle>
+                <br/>
+                <Edit editCard={props.editCard}/>
+                <br/>
                 <br/>
                 <Button disabled={priority === 10}  onClick={()=>props.priorityChange(card, + 1)}>Up</Button>
                 <CardText>{priority}</CardText>
@@ -46,7 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
     moveRight: (card,columns) => dispatch(moveRight(card, columns)),
     moveLeft: (card,columns) => dispatch(moveLeft(card, columns)),
     priorityChange: (card, value) => dispatch(priorityChange(card, value)),
-   // priorityDown: (card) => dispatch(priorityDown(card))
+   editCard: (card, input) => dispatch(editCard(card, input))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardItem);

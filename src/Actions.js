@@ -119,12 +119,10 @@ export function priorityChange(card, value){
 
 }
 
-export function priorityDown(card){
-    const priority = card.priority - 1;
-
+export function editCard(card, input){
 
     return (dispatch) => {
-        axios.patch(`http://nazarov-kanban-server.herokuapp.com/card/${card._id}`, {priority})
+        axios.patch(`http://nazarov-kanban-server.herokuapp.com/card/${card._id}`, input)
             .then((res) =>dispatch(setCards()))
             .catch(
                 (err)=>
